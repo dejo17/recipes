@@ -1,7 +1,10 @@
 package hr.scorpiusmobile.recipes.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 public class UnitOfMeasure {
 
@@ -19,11 +22,4 @@ public class UnitOfMeasure {
         this.description = uom;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
