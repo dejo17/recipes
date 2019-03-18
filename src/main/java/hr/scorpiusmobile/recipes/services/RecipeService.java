@@ -5,7 +5,7 @@ import java.util.Set;
 public interface RecipeService<Recipe, Long> {
 
 
-    Set<Recipe> findAll();
+    Set<Recipe> getRecipes();
 
 
 }
