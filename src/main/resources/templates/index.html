@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title th:text="'Index Page'">Index Page...</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
+    th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
 
 </head>
 <body>
@@ -20,25 +21,29 @@
                         <table class="table table-hover">
                             <thead class="thead-inverse">
                             <tr>
-                                <th style="width:150px">ID</th>
-                                <th style="width:150px">Recipe</th>
+                                <th style="width:50px">ID</th>
+                                <th style="width:250px">Recipe</th>
+                                <th style="width:100px">View</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="recipe:${recipes}">
-                                <td th:text="${recipe.id}">Id</td>
-                                <td th:text="${recipe.description}">Sample recipe</td>
+                                <!--/*@thymesVar id="recipe" type ="hr.scorpiusmobile.recipes.domain.Recipe"*/-->  <!--this should help IntelliJ to do autocomplete-->
+                                <td th:text="${recipe.id}">1</td>
+                                <td th:text="${recipe.description}">Sample recipe Pork</td>
+                                <td><a href="#" th:href="@{'/recipe/show/'+${recipe.id}}">View</a></td>
 
                             </tr>
                             <tr th:remove="all">
-                                <td th:text="${recipe.id}">3</td>
-                                <td th:text="${recipe.description}">Sample recipe Chicken</td>
+                                <td>3</td>
+                                <td>Sample recipe Chicken</td>
+                                <td><a href="#">View</a></td>
 
                             </tr>
                             <tr th:remove="all">
-                                <td th:text="${recipe.id}">2</td>
-                                <td th:text="${recipe.description}">Sample recipe Beef</td>
-
+                                <td>2</td>
+                                <td>Sample recipe Beef</td>
+                                <td><a href="#">View</a></td>
                             </tr>
                             </tbody>
 
@@ -59,7 +64,7 @@
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.3.1./js/bootstrap.min.js}"></script>
 </body>
 </html>
 

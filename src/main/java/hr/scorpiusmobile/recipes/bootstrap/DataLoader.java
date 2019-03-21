@@ -97,8 +97,9 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
         Recipe guacamole = new Recipe();
         guacamole.setDescription("Perfect Guacamole");
-        guacamole.setCookTime(30);
-        guacamole.setServing(1);
+        guacamole.setCookTime(14);
+        guacamole.setPrepTime(22);
+        guacamole.setServing(2);
         guacamole.setDirections("1 Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon. (See How to Cut and Peel an Avocado.) Place in a bowl.\n" +
                 "2 Mash with a fork: Using a fork, roughly mash the avocado. (Don't overdo it! The guacamole should be a little chunky.)\n" +
                 "3 Add salt, lime juice, and the rest: Sprinkle with salt and lime (or lemon) juice. The acid in the lime juice will provide some balance to the richness of the avocado and will help delay the avocados from turning brown.\n" +
@@ -111,6 +112,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
                 "\n" +
                 "Chilling tomatoes hurts their flavor, so if you want to add chopped tomato to your guacamole, add it just before serving.");
         guacamole.setDiffculty(Difficulty.MODERATE);
+        guacamole.setUrl("www.scorpiusmobile.com");
         guacamole.getCategories().add(americanCategory);
         guacamole.getCategories().add(mexicanCategory);
 
