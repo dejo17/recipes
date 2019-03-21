@@ -25,7 +25,7 @@ public class Recipe {
     private String directions;
 
     @Enumerated(value = EnumType.STRING)
-    private Difficulty diffculty;
+    private Difficulty difficulty;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredients = new HashSet<>();

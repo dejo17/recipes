@@ -1,5 +1,8 @@
 package hr.scorpiusmobile.recipes.services;
 
+import hr.scorpiusmobile.recipes.commands.RecipeCommand;
+import hr.scorpiusmobile.recipes.converters.RecipeCommandToRecipe;
+import hr.scorpiusmobile.recipes.converters.RecipeToRecipeCommand;
 import hr.scorpiusmobile.recipes.domain.Recipe;
 import hr.scorpiusmobile.recipes.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -14,9 +17,13 @@ import java.util.Set;
 public class RecipeServiceImpl implements RecipeService {
 
     private final RecipeRepository recipeRepository;
+    private final RecipeToRecipeCommand recipeToRecipeCommand;
+    private final RecipeCommandToRecipe recipeCommandToRecipe;
 
-    public RecipeServiceImpl(RecipeRepository recipeRepository) {
+    public RecipeServiceImpl(RecipeRepository recipeRepository, RecipeToRecipeCommand recipeToRecipeCommand, RecipeCommandToRecipe recipeCommandToRecipe) {
         this.recipeRepository = recipeRepository;
+        this.recipeToRecipeCommand = recipeToRecipeCommand;
+        this.recipeCommandToRecipe = recipeCommandToRecipe;
     }
 
     @Override
@@ -34,5 +41,12 @@ public class RecipeServiceImpl implements RecipeService {
            throw new RuntimeException("Recipe not found!");
        }
        return recipeOptional.get();
+    }
+
+    @Override
+    public RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand) {
+        Recipe recipe = recipeCommandToRecipe.convert(recipeCommand);
+        recipeRepository.save(recipe);
+        return recipeToRecipeCommand.convert(recipe);
     }
 }

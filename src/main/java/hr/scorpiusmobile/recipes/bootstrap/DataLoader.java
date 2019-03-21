@@ -111,7 +111,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
                 "4 Cover with plastic and chill to store: Place plastic wrap on the surface of the guacamole cover it and to prevent air reaching it. (The oxygen in the air causes oxidation which will turn the guacamole brown.) Refrigerate until ready to serve.\n" +
                 "\n" +
                 "Chilling tomatoes hurts their flavor, so if you want to add chopped tomato to your guacamole, add it just before serving.");
-        guacamole.setDiffculty(Difficulty.MODERATE);
+        guacamole.setDifficulty(Difficulty.MODERATE);
         guacamole.setUrl("www.scorpiusmobile.com");
         guacamole.getCategories().add(americanCategory);
         guacamole.getCategories().add(mexicanCategory);

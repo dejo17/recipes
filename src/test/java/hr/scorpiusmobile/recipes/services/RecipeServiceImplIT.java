@@ -1,30 +1,39 @@
 package hr.scorpiusmobile.recipes.services;
 
+import hr.scorpiusmobile.recipes.converters.RecipeCommandToRecipe;
+import hr.scorpiusmobile.recipes.converters.RecipeToRecipeCommand;
 import hr.scorpiusmobile.recipes.domain.Recipe;
 import hr.scorpiusmobile.recipes.repositories.RecipeRepository;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
-public class RecipeServiceImplTest {
+//@ExtendWith(MockitoExtension.class)
+public class RecipeServiceImplIT {
 
     RecipeServiceImpl recipeService;
-
     @Mock
     RecipeRepository recipeRepository;
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeToRecipeCommand, recipeCommandToRecipe);
     }
     @Test
     public void getRecipesTest() {
