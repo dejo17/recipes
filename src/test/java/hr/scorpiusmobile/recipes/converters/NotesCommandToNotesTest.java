@@ -2,19 +2,24 @@ package hr.scorpiusmobile.recipes.converters;
 
 import hr.scorpiusmobile.recipes.commands.CategoryCommand;
 import hr.scorpiusmobile.recipes.commands.NotesCommand;
+import hr.scorpiusmobile.recipes.domain.Notes;
+import hr.scorpiusmobile.recipes.domain.Recipe;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class NotesCommandToNotesTest {
 
     NotesCommandToNotes converter;
+    private final  String RECIPE_NOTES = "Some description to test";
+    private final Long ID_VALUE = 1L;
+    private  Recipe recipe;
 
     @BeforeEach
     void setUp() {
         converter = new NotesCommandToNotes();
+        recipe=new Recipe();
     }
 
     @Test
@@ -30,6 +35,12 @@ class NotesCommandToNotesTest {
     @Test
     void convert() {
         NotesCommand command = new NotesCommand();
-        //todo
+        command.setId(ID_VALUE);
+        command.setRecipe(recipe);
+        command.setRecipeNotes(RECIPE_NOTES);
+        Notes note = converter.convert(command);
+        assertEquals(ID_VALUE, note.getId());
+        assertEquals(RECIPE_NOTES,note.getRecipeNotes());
+        assertEquals(recipe,note.getRecipe());
     }
 }
