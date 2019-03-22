@@ -33,5 +33,11 @@ public class RecipeController {
         log.debug("Recipe controller mapped");
         return "recipe/show";
     }
+    @RequestMapping("/recipe/new")
+    public String newRecipe (Model model){
 
+        Recipe recipe = new Recipe();
+        model.addAttribute(recipe);
+        return "recipe/recipeform";
+    }
 }
