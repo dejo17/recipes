@@ -10,6 +10,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -115,8 +116,8 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         guacamole.setUrl("www.scorpiusmobile.com");
         guacamole.getCategories().add(americanCategory);
         guacamole.getCategories().add(mexicanCategory);
-
-
+        guacamole.addIngredient(new Ingredient("Sugar", BigDecimal.valueOf(15l), teaspoon));
+        guacamole.addIngredient(new Ingredient("Salt", BigDecimal.valueOf(10l), tablespoon));
         Notes guacNotes = new Notes();
         guacNotes.setRecipeNotes("For a very quick guacamole just take a 1/4 cup of salsa and mix it in with your mashed avocados.\n" +
                 "Feel free to experiment! One classic Mexican guacamole has pomegranate seeds and chunks of peaches in it (a Diana Kennedy favorite). Try guacamole with added pineapple, mango, or strawberries.\n" +

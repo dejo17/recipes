@@ -24,6 +24,8 @@
                                 <th style="width:50px">ID</th>
                                 <th style="width:250px">Recipe</th>
                                 <th style="width:100px">View</th>
+                                <th style="width:100px">Update</th>
+                                <th style="width:100px">Delete</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -31,8 +33,9 @@
                                 <!--/*@thymesVar id="recipe" type ="hr.scorpiusmobile.recipes.domain.Recipe"*/-->  <!--this should help IntelliJ to do autocomplete-->
                                 <td th:text="${recipe.id}">1</td>
                                 <td th:text="${recipe.description}">Sample recipe Pork</td>
-                                <td><a href="#" th:href="@{'/recipe/show/'+${recipe.id}}">View</a></td>
-
+                                <td><a href="#" th:href="@{'/recipe/'+${recipe.id}+'/show'}">View</a></td>
+                                <td><a href="#" th:href="@{'/recipe/'+${recipe.id}+'/update'}">Update</a></td>
+                                <td><a href="#" th:href="@{'/recipe/'+${recipe.id}+'/delete'}">Delete</a></td>
                             </tr>
                             <tr th:remove="all">
                                 <td>3</td>
