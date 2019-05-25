@@ -29,5 +29,6 @@ public class Ingredient {
         this.uom = uom;
     }
     public Ingredient() {
+
     }
 }
