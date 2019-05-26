@@ -1,6 +1,10 @@
 package hr.scorpiusmobile.recipes.controllers;
 
 import hr.scorpiusmobile.recipes.commands.IngredientCommand;
+import hr.scorpiusmobile.recipes.commands.RecipeCommand;
+import hr.scorpiusmobile.recipes.commands.UnitOfMeasureCommand;
+import hr.scorpiusmobile.recipes.domain.Ingredient;
+import hr.scorpiusmobile.recipes.domain.Recipe;
 import hr.scorpiusmobile.recipes.services.IngredientService;
 import hr.scorpiusmobile.recipes.services.RecipeService;
 import hr.scorpiusmobile.recipes.services.UnitOfMeasureService;
@@ -9,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.StreamSupport;
 
 
 @Controller
@@ -55,6 +61,25 @@ public class IngredientController {
         return "redirect:/recipe/" + savedCommand.getRecipeId() + "/ingredients/" + savedCommand.getId() + "/show";
     }
 
+    @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredients/new")
+    public String newIngredient (@PathVariable String recipeId, Model model){
 
+        RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
+        //TODO error handling
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(recipeCommand.getId());
+        ingredientCommand.setUomCommand(new UnitOfMeasureCommand());
 
+        model.addAttribute("ingredient", ingredientCommand);
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+        return "recipe/ingredients/ingredientform";
+    }
+    @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredients/{ingredientId}/delete")
+    public String deleteById(@PathVariable String recipeId, @PathVariable String ingredientId){
+
+        ingredientService.deleteById(Long.valueOf(recipeId), Long.valueOf(ingredientId));
+        return "redirect:/recipe/" + recipeId + "/ingredients";
+    }
 }

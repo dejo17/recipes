@@ -8,5 +8,6 @@ import java.util.Optional;
 public interface IngredientService  {
     IngredientCommand findByRecipeIdAndIngredientId (Long recipeId, Long ingredientId);
 
-    IngredientCommand saveIngredientCommand(IngredientCommand comman);
+    IngredientCommand saveIngredientCommand(IngredientCommand command);
+    void deleteById(Long recipeId, Long ingredientId);
 }
