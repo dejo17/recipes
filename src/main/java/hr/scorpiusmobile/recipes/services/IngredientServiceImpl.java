@@ -5,6 +5,7 @@ import hr.scorpiusmobile.recipes.converters.IngredientCommandToIngredient;
 import hr.scorpiusmobile.recipes.converters.IngredientToIngredientCommand;
 import hr.scorpiusmobile.recipes.domain.Ingredient;
 import hr.scorpiusmobile.recipes.domain.Recipe;
+import hr.scorpiusmobile.recipes.domain.UnitOfMeasure;
 import hr.scorpiusmobile.recipes.repositories.RecipeRepository;
 import hr.scorpiusmobile.recipes.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -55,6 +56,7 @@ public class IngredientServiceImpl implements IngredientService {
     @Override
     @Transactional
     public IngredientCommand saveIngredientCommand(IngredientCommand command) {
+
         Optional<Recipe> recipeOptional = recipeRepository.findById(command.getRecipeId());
         if (!recipeOptional.isPresent()) {
             log.error("Recipe not found for id: " + command.getRecipeId());
@@ -72,17 +74,23 @@ public class IngredientServiceImpl implements IngredientService {
                 Ingredient ingredientFound = ingredientOptional.get();
                 ingredientFound.setDescription(command.getDescription());
                 ingredientFound.setAmount(command.getAmount());
+                /*debug:
                 if (command.getUomCommand() == null) {
                     log.debug("UoM command je null");
                 } else {
                     log.debug("UoM command id je: " + command.getUomCommand().getId());
-                }
-                ingredientFound.setUom(unitOfMeasureRepository
+                }*/
+                UnitOfMeasure uom;
+                uom = unitOfMeasureRepository
                         .findById(command.getUomCommand().getId())
-                        .orElseThrow(() -> new RuntimeException(("UOM NOT FOUND"))));
+                        .orElseThrow(() -> new RuntimeException(("UOM NOT FOUND")));
+                ingredientFound.setUom(uom); //TODO happy path, treba sredit
+
             } else {
+                //add new ingredient
                 recipe.addIngredient(ingredientCommandToIngredient.convert(command));
             }
+
             Recipe savedRecipe = recipeRepository.save(recipe);
 
             return ingredientToIngredientCommand.convert(savedRecipe.getIngredients()
