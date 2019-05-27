@@ -38,11 +38,7 @@ class IngredientToIngredientCommandTest {
 
     @Test
     public void testEmptyObject() throws Exception {
-        Long id = 1L;
-        String description = "Some text";
-        BigDecimal amount = BigDecimal.valueOf(1L);
-        UnitOfMeasure uom = new UnitOfMeasure();
-        assertNotNull(converter.convert(new Ingredient(description,amount, uom)));
+        assertNotNull(converter.convert(new Ingredient()));
     }
 
     @Test
