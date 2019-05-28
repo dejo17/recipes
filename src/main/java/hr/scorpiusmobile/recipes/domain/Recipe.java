@@ -35,7 +35,7 @@ public class Recipe {
     private Set<Ingredient> ingredients = new HashSet<>();
 
     @Lob
-    private Byte[] image;
+    private Byte[] image;  //recommendation by hibernate to use Byte wrapper around primitive bytes
 
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;

@@ -29,7 +29,12 @@
                                     <label>Recipe Description:</label>
                                     <input type="text" class="form-control" th:field="*{description}"/>
                                 </div>
+                                <div>
+                                    <a class="btn btn-default" href="#" th:href="@{'/recipe/'+${recipe.id}+'/image'}"
+                                       role="button">Change image</a>
+                                </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-3 form-group">
                                     <label>Categories:</label>
@@ -60,7 +65,13 @@
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>Difficulty:</label>
-                                    <select class="form-control">
+                                    <select class="form-control" th:field="*{difficulty}">
+                                        <option th:each="difficultyValue:${T(hr.scorpiusmobile.recipes.domain.Difficulty).values()}"
+                                                th:value="${difficultyValue.name()}"
+                                                th:text="${difficultyValue.name()}"
+                                        >val</option>
+                                    </select>
+                                    <select class="form-control" th:remove="all">
                                         <option>Easy</option>
                                         <option>Medium</option>
                                         <option>Hard</option>

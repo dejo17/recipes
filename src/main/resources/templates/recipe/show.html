@@ -26,15 +26,18 @@
                             <div class="col-sm-3">
                                 <h5>Categories:</h5>
                             </div>
-                            <div class="col-sm-9">
+                            <div class="col-sm-3">
                                 <ul>
-                                    <!--/*@thymesVar id="category" type ="hr.scorpiusmobile.recipes.domain.Category"*/-->
-                                    <li th:each="category:${categories}" th:text="${category.getDescription()}">cat
-                                        one
-                                    </li>
-                                    <li th:remove="all">cat two</li>
-                                    <li th:remove="all">cat three</li>
+                                    <li th:remove ="all">Category 1</li>
+                                    <li th:remove ="all">Category 2</li>
+                                    <li th:each = "category : ${recipe.categories}"
+                                        th:text = "${category.getDescription()}">Category 3</li>
                                 </ul>
+                            </div>
+                            <div class="col-sm-3">
+                                <img src="../../static/images/guacamole400x400WithX.jpg"
+                                    th:src="@{'/recipe/' + ${recipe.id} + '/recipeimage'}"
+                                    width="200" height="200">
                             </div>
                         </div>
                         <div class="row">
@@ -48,7 +51,7 @@
                                 <h5>Difficulty:</h5>
                             </div>
                             <div class="col-sm-3">
-                                <!--<p th:text="${recipe.difficulty}" >Easy</p>-->
+                                <p th:text="${recipe.difficulty}" >Easy</p>
                             </div>
                         </div>
                         <div class="row">
@@ -88,7 +91,7 @@
                                 <h3 class="panel-title">Ingredients</h3>
                             </div>
                             <div class="col-md-2">
-                                <a class="btn btn-defalut" href="#" th:href="@{'/recipe/'+${recipe.id}+'/ingredients'}"
+                                <a class="btn btn-default" href="#" th:href="@{'/recipe/'+${recipe.id}+'/ingredients'}"
                                    role="button">View</a>
 
 
