@@ -2,9 +2,12 @@ package hr.scorpiusmobile.recipes.controllers;
 
 import hr.scorpiusmobile.recipes.commands.RecipeCommand;
 import hr.scorpiusmobile.recipes.domain.Recipe;
+import hr.scorpiusmobile.recipes.exceptions.NotFoundException;
+import hr.scorpiusmobile.recipes.repositories.RecipeRepository;
 import hr.scorpiusmobile.recipes.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +18,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -30,6 +35,10 @@ public class RecipeControllerTest {
 
     @Mock
     RecipeService recipeService;
+
+    @Mock
+    RecipeRepository recipeRepository;
+
     MockMvc mockMvc;
 
 
@@ -40,6 +49,18 @@ public class RecipeControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
     }
 
+    @Test
+    public void testGetRecipeByIdNotFound() throws Exception {
+
+        Optional<Recipe> recipeOptional = Optional.empty();
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Assertions.assertThrows(NotFoundException.class, () ->
+        {
+            Recipe recipeReturned = recipeService.findById(1L); //should fail here
+        });
+
+    }
 
     @Test
     public void testGetRecipe() throws Exception {
@@ -87,7 +108,7 @@ public class RecipeControllerTest {
         recipeCommand.setId(2L);
 
         when(recipeService.findCommandById(any())).thenReturn(recipeCommand);
-       // mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
+        // mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
         mockMvc.perform(get("/recipe/2/update"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/recipeform"))
