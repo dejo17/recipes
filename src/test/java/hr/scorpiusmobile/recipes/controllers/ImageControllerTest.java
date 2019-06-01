@@ -50,6 +50,16 @@ class ImageControllerTest {
     }
 
     @Test
+    public void testHandleNumberFormatException() throws Exception{
+
+        mockMvc.perform(get("/recipe/fdsdf/image"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("400error"));
+
+    }
+
+
+    @Test
     public void testHandleImagePost() throws Exception {
 
         MockMultipartFile multipartFile = new MockMultipartFile("imagefile", "testing.txt",
