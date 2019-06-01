@@ -4,6 +4,7 @@ import hr.scorpiusmobile.recipes.commands.RecipeCommand;
 import hr.scorpiusmobile.recipes.converters.RecipeCommandToRecipe;
 import hr.scorpiusmobile.recipes.converters.RecipeToRecipeCommand;
 import hr.scorpiusmobile.recipes.domain.Recipe;
+import hr.scorpiusmobile.recipes.exceptions.NotFoundException;
 import hr.scorpiusmobile.recipes.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,8 @@ public class RecipeServiceImpl implements RecipeService {
     public Recipe findById(Long id) {
        Optional<Recipe> recipeOptional = recipeRepository.findById(id);
        if(!recipeOptional.isPresent()){
-           throw new RuntimeException("Recipe not found! Id: " + id);
+           //throw new RuntimeException("Recipe not found! Id: " + id);
+           throw new NotFoundException("Recipe not found! Id: " + id);
        }
        return recipeOptional.get();
     }

@@ -49,32 +49,33 @@ public class RecipeControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
     }
 
-    @Test
-    public void testGetRecipeByIdNotFound() throws Exception {
-
-        Optional<Recipe> recipeOptional = Optional.empty();
-        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
-
-        Assertions.assertThrows(NotFoundException.class, () ->
-        {
-            Recipe recipeReturned = recipeService.findById(1L); //should fail here
-        });
-
-    }
 
     @Test
-    public void testGetRecipe() throws Exception {
+    public void testFindById() throws Exception {
 
         Recipe recipe = new Recipe();
         recipe.setId(1L);
 
-        Long longId = new Long(1);
+        Long longId = 1L;
         when(recipeService.findById(longId)).thenReturn(recipe);
 
         mockMvc.perform(get("/recipe/1/show"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/show"))
                 .andExpect(model().attributeExists("recipe"));
+    }
+
+    @Test
+    public void testFindByIdNotFound() throws Exception {
+
+
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        //Assertions.assertThrows(NotFoundException.class,() ->
+            mockMvc.perform(get("/recipe/1/show"))
+                    .andExpect(status().isNotFound());
+        //);
+
     }
 
     @Test
