@@ -31,7 +31,8 @@ class ImageControllerTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
         imageController = new ImageController(imageService, recipeService);
-        mockMvc = MockMvcBuilders.standaloneSetup(imageController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(imageController)
+                .setControllerAdvice(new ControllerExceptionHandler()).build();
     }
 
     @Test
@@ -50,7 +51,7 @@ class ImageControllerTest {
     }
 
     @Test
-    public void testHandleNumberFormatException() throws Exception{
+    public void testHandleNumberFormatException() throws Exception {
 
         mockMvc.perform(get("/recipe/fdsdf/image"))
                 .andExpect(status().isBadRequest())
@@ -72,8 +73,9 @@ class ImageControllerTest {
         verify(imageService, times(1)).saveImageFile(anyLong(), any());
 
     }
+
     @Test
-    public void testRenderImageFromDB() throws Exception{
+    public void testRenderImageFromDB() throws Exception {
 
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId(1L);
@@ -82,8 +84,8 @@ class ImageControllerTest {
         Byte[] fakeImageBytes = new Byte[fakeImage.getBytes().length];
 
         int i = 0;
-        for(byte primitiveByte:fakeImage.getBytes()){
-            fakeImageBytes[i++]=primitiveByte;
+        for (byte primitiveByte : fakeImage.getBytes()) {
+            fakeImageBytes[i++] = primitiveByte;
         }
 
         recipeCommand.setImage(fakeImageBytes);
