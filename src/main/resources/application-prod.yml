@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_prod
+    username: db_prod_user
+    password: db_prod_pass #not good practice, should be either crypted or extracted to environment variable
+    platform: mysql
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+    show-sql: false
